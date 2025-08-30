@@ -7,8 +7,13 @@ from langchain.schema.runnable import RunnablePassthrough
 from langchain_chroma import Chroma
 from langchain.schema import StrOutputParser
 from langchain_core.prompts import PromptTemplate
+from dotenv import load_dotenv
 
-api_key = "AIzaSyAspuQbuRuyF0DYzhrvIGgY-3MdVsJIkgU"
+load_dotenv()
+
+api_key = os.getenv("GOOGLE_API_KEY")
+if not api_key:
+    raise ValueError("GOOGLE_API_KEY environment variable is not set")
 os.environ["GOOGLE_API_KEY"] = api_key
 
 loader = CSVLoader(file_path='./test.csv', csv_args={
